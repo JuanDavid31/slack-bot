@@ -1,4 +1,5 @@
 class Todo
+  attr_reader :name
   def initialize(name)
     @name = name
     @checked = false

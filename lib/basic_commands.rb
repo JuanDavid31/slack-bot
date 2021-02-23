@@ -16,28 +16,36 @@ class BasicCommands < SlackRubyBot::Commands::Base
     client.say(channel: data.channel, text: formatted_joke)
   end
 
-  command 'todo_add', /\w+/ do |client, data, match|
+  command 'todo_add', /todo_add \w+/ do |client, data, match|
     todo_name = match['expression']
-    todos.push Todo.new(todo_name)
-    client.say(channel: data.channel, text: 'Your todo was added to the list! ')
+    if todo_name.nil?
+      client.say(channel: data.channel, text: 'Please write the name of your todo')
+    else
+      todos.push Todo.new(todo_name)
+      client.say(channel: data.channel, text: 'Your todo was added to the list!')
+    end
   end
 
-  command 'todo_show_all', /\w+/ do |client, data, match|
-    formatted_todos = 'Your todo list\\n'
+  command 'todo_show_all' do |client, data, match|
+    formatted_todos = "Your todo list\n"
     todos.each_with_index do |todo, index|
-      formatted_todos += "#{index + 1} - #{todo} #{todo.checked? ? '\u2713'.encode('utf-8') : ''}\n"
+      formatted_todos += "#{index + 1} - #{todo.name} #{todo.checked? ? '\u2713'.encode('utf-8') : ''}\n"
     end
     client.say(channel: data.channel, text: formatted_todos)
   end
 
-  command 'todo_remove', /\d+/ do |client, data, match|
-
-    client.say(channel: data.channel, text: 'Your todo was succesfully removed')
+  command 'todo_remove', /todo_remove ^[1-9][0-9]?$|^100$/ do |client, data, match|
+    if match['expression'].nil?
+      client.say(channel: data.channel, text: 'Please write a valir todo number')
+    else
+      index = (match['expression'].to_i - 1).abs
+      todos.delete_at(index)
+      client.say(channel: data.channel, text: 'Your todo was succesfully removed')
+    end
   end
 
   def self.todos
     @@todos = [] if @@todos.nil?
     @@todos
   end
-
 end
