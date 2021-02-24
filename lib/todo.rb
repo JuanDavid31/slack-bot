@@ -9,7 +9,7 @@ class Todo
     @checked
   end
 
-  def check
+  def check!
     @checked = true
   end
 end
