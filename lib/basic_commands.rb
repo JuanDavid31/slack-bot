@@ -2,8 +2,7 @@ require 'rest-client'
 require_relative 'todo'
 
 class BasicCommands < SlackRubyBot::Commands::Base
-
-  @@todos = []
+  @todos = []
 
   command 'joke' do |client, data, _match|
     response = RestClient.get 'https://official-joke-api.appspot.com/jokes/random'
@@ -26,12 +25,16 @@ class BasicCommands < SlackRubyBot::Commands::Base
     end
   end
 
-  command 'todo_show_all' do |client, data, match|
-    formatted_todos = "Your todo list\n"
-    todos.each_with_index do |todo, index|
-      formatted_todos += "#{index + 1} - #{todo.name} #{todo.checked? ? '\u2713'.encode('utf-8') : ''}\n"
+  command 'todo_show_all' do |client, data, _match|
+    if todos.empty?
+      client.say(channel: data.channel, text: 'There are no todos to show')
+    else
+      formatted_todos = "Your todo list\n"
+      todos.each_with_index do |todo, index|
+        formatted_todos += "#{index + 1} - #{todo.name} #{todo.checked? ? '\u2713'.encode('utf-8') : ''}\n"
+      end
+      client.say(channel: data.channel, text: formatted_todos)
     end
-    client.say(channel: data.channel, text: formatted_todos)
   end
 
   command 'todo_remove', /todo_remove ^[1-9][0-9]?$|^100$/ do |client, data, match|
@@ -44,8 +47,18 @@ class BasicCommands < SlackRubyBot::Commands::Base
     end
   end
 
+  command 'todo_check', /todo_check ^[1-9][0-9]?$|^100$/ do |client, data, match|
+    if match['expression'].nil?
+      client.say(channel: data.channel, text: 'Please write a valid todo number')
+    else
+      index = (match['expression'].to_i - 1).abs
+      todos[index].check
+      client.say(channel: data.channel, text: 'Your todo was succesfully checked')
+    end
+  end
+
   def self.todos
-    @@todos = [] if @@todos.nil?
-    @@todos
+    @todos = [] if @todos.nil?
+    @todos
   end
 end
