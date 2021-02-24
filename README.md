@@ -2,55 +2,82 @@
 
 # slack-bot
 
-> This is a solution to the [Odin project lesson: Enumerable methods](https://github.com/TheOdinProject/curriculum/blob/master/archive/old_lessons/ruby/basic_ruby/project_advanced_building_blocks.md#project-2-enumerable-methods). 
+> Second capstone project of the Microverse program. 
 
-![screenshot](screenshot.png)
+![screenshot](./screenshot.png)
 
-This is a microverse approach to replicate some of the ruby enumerable methods
+This is a microverse approach to create a Slack bot
 
 ## Built With
 
 - Ruby
 
+## Features
+
+- Random joke fetcher
+- Todo manager
 
 ## Getting Started
-
-- Run this command in your OS terminal: `git clone https://github.com/JuanDavid31/bubble-sort-by.git` to get a copy of the project.
-- Open a terminal in the project folder and run `ruby app.rb`.
-
 
 ### Prerequisites
 
 * Internet connection
 * Having Ruby installed on you OS
+* Having desktop Slack App installed (Optional)
 
+
+### Deployment for Microverse TSEs
+
+1. Join to my development Slack workspace (Link in the code review form)
+2. Copy `.env` file content to your clipboard (Content in the code review form)
+3. Create a `.env` file in the project root folder and paste the content from step 2
+4. Open the Slack app in browser or desktop
+5. Open a terminal in the project root folder
+6. Run `bundle install`
+7. Run `bundle exec rackup`
+
+### Deployment
+
+1. Create a Slack workspace [here](https://slack.com/create#email)
+2. [Create a Slack bot](http://slack.com/services/new/bot) in your workspace 
+2. Copy the API TOKEN to your clipboard
+3. Create a `.env` file in the project root folder
+5. Paste `SLACK_API_TOKEN=<your_api_token_goes_here>`
+6. Open the Slack app in browser or desktop
+7. Open a terminal in the project root folder
+8. Run `bundle install`
+9. Run `bundle exec rackup`
 
 ### Usage
+After deployment, the bot user should be visible in the Slack workspace, double click to write
+a private message with one of the following commands:
 
-* Execute the `app.rb` file
+- `help` Shows a description of the bot a list every possible command.
+- `joke` Fetches a random joke from a REST API
+- `todo_show_all` List all the available todos
+- `todo_add <arg>` Adds `arg` as a todo. Allowed arguments: Strings.
+- `todo_remove <arg>` Removes a todo from the list in the `arg` position. Allowed arguments: Only number from 1 to 100.
+- `todo_check <arg>` Checks the todo from the list in the `arg` position. Allowed arguments: Only number from 1 to 100.
+
 
 ## How to run the test cases
 
-- Open a command line terminal on the project root folder
-- Run `bundle install` to install the gems
-- Run `bundle exec rspec` to run all the test cases
+1. Open a command line terminal on the project root folder
+2. Run `bundle install` to install the gems
+3. Run `bundle exec rspec` to run all the test cases
 
 ## Authors
 
-👤 **Author1 - Juan David Piza**
+👤 **Author - Juan David Piza**
 
 - GitHub: [JuanDavid31](https://github.com/JuanDavid31)
 - Twitter: [Juan David Piza](https://twitter.com/jdpw31)
-
-👤 **Author2 - Chukwuma Obasi**
-
-- GitHub: [ccobasi](https://github.com/ccobasi)
 
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
 
-Feel free to check the [issues page](https://github.com/JuanDavid31/ruby-custom-enumerables/issues).
+Feel free to check the [issues page](https://github.com/JuanDavid31/slack-bot/issues).
 
 ## Show your support
 
