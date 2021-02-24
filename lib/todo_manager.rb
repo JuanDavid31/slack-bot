@@ -12,7 +12,7 @@ class TodoManager
   def formatted_todo_list
     formatted_todos = "Your todo list\n"
     @todos.each_with_index do |todo, index|
-      formatted_todos += "#{index + 1} - #{todo.name} #{todo.checked? ? '\u2713'.encode('utf-8') : ''}\n"
+      formatted_todos += "#{index + 1} - #{todo.name} #{todo.checked? ? ':white_check_mark:' : ''}\n"
     end
     formatted_todos
   end

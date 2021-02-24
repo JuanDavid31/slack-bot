@@ -3,7 +3,7 @@ require_relative '../lib/todo_manager'
 describe TodoManager do
   let(:todo_manager) { TodoManager.new }
   let(:todo_name) { 'Clean up my room' }
-  let(:check_mark) { '\u2713'.encode('utf-8') }
+  let(:check_mark) { ':white_check_mark:' }
 
   describe '#todos_available?' do
     context 'when the instance was created' do
