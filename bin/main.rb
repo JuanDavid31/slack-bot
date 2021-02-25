@@ -1,0 +1,7 @@
+require 'slack-ruby-bot'
+require_relative '../lib/bot'
+require_relative '../lib/commands/joke'
+require_relative '../lib/commands/todo_show_all'
+require_relative '../lib/commands/todo_add'
+require_relative '../lib/commands/todo_check'
+require_relative '../lib/commands/todo_remove'
